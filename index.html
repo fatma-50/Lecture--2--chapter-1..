@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدارة الجودة الشاملة | منصة المذاكرة التفاعلية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7e57c2; --purple-dark:#5e35b1; --purple-deep:#4527a0;
+  --lav:#b39ddb; --lav-light:#ede7f6; --lav-lighter:#f6f2fc;
+  --white:#ffffff; --ink:#3d3160; --ink-soft:#6b5f8f;
+  --pink:#f48fb1; --pink-light:#fce4ec; --gold:#ffca28; --gold-light:#fff8e1;
+  --green:#66bb6a; --green-light:#e8f5e9; --blue:#5c9ded; --blue-light:#e3f0ff;
+  --radius:18px; --shadow:0 6px 24px rgba(126,87,194,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;background:var(--lav-lighter);color:var(--ink);line-height:1.9;overflow-x:hidden}
+/* ====== زخارف خلفية ====== */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+   radial-gradient(circle at 8% 12%, rgba(179,157,219,.18) 0 90px, transparent 91px),
+   radial-gradient(circle at 94% 78%, rgba(244,143,177,.13) 0 110px, transparent 111px),
+   radial-gradient(circle at 85% 8%, rgba(255,202,40,.10) 0 70px, transparent 71px);}
+.decor-flower{position:absolute;opacity:.16;pointer-events:none}
+/* ====== شريط التنقل ====== */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+  box-shadow:0 2px 14px rgba(126,87,194,.15)}
+.nav-inner{max-width:1250px;margin:auto;display:flex;align-items:center;gap:6px;padding:10px 16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;color:var(--purple-dark);font-size:1.05rem;margin-left:8px;white-space:nowrap}
+.brand .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--lav));
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;box-shadow:var(--shadow)}
+nav a{color:var(--ink-soft);text-decoration:none;font-size:.86rem;font-weight:700;padding:7px 11px;border-radius:999px;transition:.25s;white-space:nowrap}
+nav a:hover,nav a.active{background:var(--lav-light);color:var(--purple-dark)}
+/* ====== أزرار عامة ====== */
+.btn{display:inline-flex;align-items:center;gap:7px;border:none;cursor:pointer;font-family:inherit;font-weight:800;
+  padding:11px 22px;border-radius:999px;font-size:.95rem;transition:.25s;text-decoration:none}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(126,87,194,.35)}
+.btn-ghost{background:#fff;color:var(--purple-dark);border:2px solid var(--lav)}
+.btn-ghost:hover{background:var(--lav-light)}
+.btn-gold{background:linear-gradient(135deg,#ffd54f,#ffb300);color:#5d4300;box-shadow:0 6px 20px rgba(255,179,0,.3)}
+/* ====== الأقسام ====== */
+section{padding:70px 18px;position:relative;z-index:1}
+.wrap{max-width:1250px;margin:auto}
+.sec-head{text-align:center;margin-bottom:44px}
+.sec-tag{display:inline-block;background:var(--lav-light);color:var(--purple-dark);font-weight:800;font-size:.8rem;
+  padding:5px 18px;border-radius:999px;margin-bottom:12px;border:1px solid var(--lav)}
+.sec-head h2{font-size:clamp(1.5rem,3.4vw,2.3rem);color:var(--purple-deep);font-weight:900}
+.sec-head p{color:var(--ink-soft);max-width:720px;margin:8px auto 0;font-size:.98rem}
+/* ====== الهيرو ====== */
+.hero{padding:90px 18px 70px;text-align:center;
+  background:linear-gradient(160deg,var(--lav-light) 0%,#fff 45%,var(--pink-light) 100%)}
+.hero h1{font-size:clamp(1.8rem,4.6vw,3.2rem);font-weight:900;color:var(--purple-deep);line-height:1.5}
+  .hero .sub{color:var(--ink-soft);font-size:1.08rem;max-width:800px;margin:16px auto 26px}
+.hero .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.hero .badge{background:#fff;border:1px solid var(--lav);border-radius:999px;padding:7px 18px;font-weight:700;font-size:.86rem;color:var(--purple-dark);box-shadow:var(--shadow)}
+.progress-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);max-width:640px;margin:0 auto;padding:24px 28px;border:1px solid var(--lav-light)}
+.progress-card h3{color:var(--purple-dark);font-size:1rem;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.progress-track{height:16px;background:var(--lav-light);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--lav),var(--purple),var(--pink));transition:width .6s ease}
+/* ====== بطاقات عامة ====== */
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--lav-light);padding:24px;transition:.3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 12px 34px rgba(126,87,194,.22)}
+.grid{display:grid;gap:20px}
+/* ====== الخريطة الذهنية الرئيسية ====== */
+.mindmap{background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:40px 24px;overflow-x:auto;border:1px solid var(--lav-light)}
+.mm{display:flex;flex-direction:column;align-items:center;min-width:900px}
+.mm-center{background:linear-gradient(135deg,var(--purple),var(--purple-deep));color:#fff;border-radius:22px;
+  padding:18px 34px;font-weight:900;font-size:1.25rem;box-shadow:0 10px 30px rgba(69,39,160,.35);text-align:center;position:relative}
+.mm-center small{display:block;font-weight:600;font-size:.8rem;opacity:.85}
+.mm-connector{width:4px;height:34px;background:linear-gradient(var(--lav),var(--pink))}
+.mm-branches{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.mm-branch{background:var(--lav-light);border:2px solid var(--lav);border-radius:18px;padding:16px 18px;width:196px;text-align:center;cursor:pointer;transition:.25s}
+.mm-branch:hover{background:#fff;transform:translateY(-4px)}
+.mm-branch .ico{font-size:1.7rem}
+.mm-branch h4{color:var(--purple-dark);font-size:1rem;margin:4px 0 6px}
+.mm-branch ul{list-style:none;text-align:right;font-size:.8rem;color:var(--ink-soft)}
+.mm-branch ul li{padding:3px 0;border-bottom:1px dashed var(--lav)}
+.mm-branch ul li:last-child{border:none}
+/* ====== الخط الزمني ====== */
+.timeline{position:relative;max-width:900px;margin:auto;padding:10px 0}
+.timeline::before{content:"";position:absolute;top:0;bottom:0;right:26px;width:4px;border-radius:4px;
+  background:linear-gradient(var(--gold),var(--pink),var(--purple))}
+.tl-item{position:relative;padding-right:70px;margin-bottom:34px}
+.tl-dot{position:absolute;right:12px;top:6px;width:32px;height:32px;border-radius:50%;background:#fff;border:4px solid var(--purple);
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;color:var(--purple-dark)}
+.tl-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 22px;border:1px solid var(--lav-light)}
+.tl-card h4{color:var(--purple-deep);font-size:1.05rem}
+.tl-card .era{display:inline-block;background:var(--gold-light);color:#8d6e00;font-size:.75rem;font-weight:800;
+  padding:2px 12px;border-radius:99px;border:1px solid var(--gold);margin-bottom:6px}
+/* ====== بطاقات المراحل ====== */
+.stage-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.stage-card{position:relative;overflow:hidden}
+.stage-card::before{content:"";position:absolute;top:0;right:0;left:0;height:6px}
+.stage-card.s0::before{background:var(--gold)} .stage-card.s1::before{background:var(--pink)}
+.stage-card.s2::before{background:var(--blue)} .stage-card.s3::before{background:var(--green)}
+  .stage-card.s4::before{background:var(--purple)} .stage-card.s5::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.stage-card .period{display:inline-block;font-size:.74rem;font-weight:800;background:var(--lav-light);color:var(--purple-dark);border-radius:99px;padding:2px 12px;margin-bottom:8px}
+.stage-card h3{color:var(--purple-deep);font-size:1.12rem;margin-bottom:6px}
+.stage-card .pioneer{font-size:.82rem;font-weight:800;color:var(--pink);margin-bottom:8px}
+.stage-card ul{list-style:none;font-size:.88rem;color:var(--ink-soft)}
+.stage-card ul li{padding:4px 0 4px 0;position:relative;padding-right:18px}
+.stage-card ul li::before{content:"✦";position:absolute;right:0;color:var(--lav);font-size:.75rem}
+.stage-card .key{margin-top:10px;background:var(--gold-light);border-right:4px solid var(--gold);border-radius:10px;padding:8px 12px;font-size:.83rem;font-weight:700;color:#6d5a10}
+/* ====== العلماء ====== */
+.sci-grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.sci-card{text-align:center}
+.avatar{width:86px;height:86px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;font-weight:900;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.15);border:4px solid #fff;outline:3px solid var(--lav)}
+.sci-card h3{color:var(--purple-deep);font-size:1.1rem}
+.sci-card .dates{font-size:.78rem;color:var(--ink-soft);font-weight:700;margin-bottom:2px}
+.sci-card .role{display:inline-block;background:var(--pink-light);color:#ad1457;font-size:.75rem;font-weight:800;border-radius:99px;padding:2px 14px;margin:6px 0 12px;border:1px solid var(--pink)}
+.sci-card ul{list-style:none;text-align:right;font-size:.86rem;color:var(--ink-soft)}
+.sci-card ul li{padding:4px 18px 4px 0;position:relative}
+.sci-card ul li::before{content:"✦";position:absolute;right:0;color:var(--purple)}
+.sci-card .flag{position:absolute;top:14px;left:14px;font-size:1.4rem}
+/* ====== النظريات ====== */
+.theory-grid{grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
+.theory-card h3{color:var(--purple-deep);font-size:1.1rem;margin-bottom:4px}
+.theory-card .owner{font-size:.8rem;font-weight:800;color:var(--pink);margin-bottom:12px}
+.pdca{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.pdca div{border-radius:14px;padding:14px;text-align:center;font-weight:900;font-size:.95rem}
+.pdca small{display:block;font-weight:600;font-size:.76rem;opacity:.85}
+.pdca .p{background:var(--green-light);border:2px solid var(--green);color:#2e7d32}
+.pdca .d{background:var(--blue-light);border:2px solid var(--blue);color:#1565c0}
+.pdca .c{background:var(--gold-light);border:2px solid var(--gold);color:#8d6e00}
+.pdca .a{background:var(--pink-light);border:2px solid var(--pink);color:#ad1457}
+.trilogy{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.trilogy div{border-radius:12px;padding:10px 14px;font-weight:800;font-size:.88rem;display:flex;align-items:center;gap:10px}
+.trilogy .t1{background:var(--lav-light);border-right:5px solid var(--purple);color:var(--purple-deep)}
+.trilogy .t2{background:var(--blue-light);border-right:5px solid var(--blue);color:#1565c0}
+.trilogy .t3{background:var(--green-light);border-right:5px solid var(--green);color:#2e7d32}
+.absolutes{list-style:none;margin-top:8px;counter-reset:abs}
+.absolutes li{counter-increment:abs;background:var(--lav-lighter);border-radius:12px;padding:10px 14px;margin-bottom:8px;
+  font-size:.87rem;position:relative;padding-right:46px;border:1px solid var(--lav-light)}
+.absolutes li::before{content:counter(abs);position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem}
+  .shewhart-cycle{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.shewhart-cycle span{background:#fff;border:2px solid var(--lav);border-radius:99px;padding:7px 16px;font-weight:800;font-size:.82rem;color:var(--purple-dark)}
+.shewhart-cycle .arrow{align-self:center;color:var(--pink);font-weight:900}
+/* ====== المقارنات ====== */
+.table-scroll{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--lav-light);background:#fff}
+table{width:100%;border-collapse:collapse;min-width:820px;font-size:.87rem}
+th{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;padding:14px 12px;font-size:.9rem;white-space:nowrap}
+td{padding:13px 12px;border-bottom:1px solid var(--lav-light);vertical-align:top;color:var(--ink-soft)}
+tr:nth-child(even) td{background:var(--lav-lighter)}
+td:first-child{font-weight:900;color:var(--purple-deep);white-space:nowrap;background:var(--lav-light)!important}
+.compare-cards{grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:24px}
+.compare-cards .card h4{color:var(--purple-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.vs{display:flex;align-items:center;justify-content:center}
+.vs span{background:var(--pink);color:#fff;font-weight:900;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+/* ====== الملخص ====== */
+.qa{max-width:880px;margin:auto;display:flex;flex-direction:column;gap:14px}
+.qa-item{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--lav-light);overflow:hidden}
+.qa-q{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800;color:var(--purple-deep)}
+.qa-q .toggle{width:30px;height:30px;border-radius:50%;background:var(--lav-light);color:var(--purple-dark);display:flex;align-items:center;justify-content:center;font-weight:900;transition:.3s;flex-shrink:0}
+.qa-item.open .toggle{transform:rotate(45deg);background:var(--purple);color:#fff}
+.qa-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.qa-a-inner{padding:0 20px 18px;color:var(--ink-soft);font-size:.92rem;border-top:1px dashed var(--lav)}
+.qa-a-inner b{color:var(--purple-dark)}
+/* ====== البطاقات ====== */
+.flash-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.flash{perspective:1200px;height:190px;cursor:pointer}
+.flash-inner{position:relative;width:100%;height:100%;transition:transform .7s;transform-style:preserve-3d}
+.flash.flipped .flash-inner{transform:rotateY(180deg)}
+.flash-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--radius);display:flex;
+  flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;box-shadow:var(--shadow)}
+.flash-front{background:#fff;border:2px solid var(--lav)}
+.flash-front .cat{font-size:.7rem;background:var(--lav-light);color:var(--purple-dark);border-radius:99px;padding:2px 12px;font-weight:800;margin-bottom:8px}
+.flash-front h4{color:var(--purple-deep);font-size:1rem}
+.flash-front .hint{margin-top:auto;font-size:.72rem;color:var(--lav);font-weight:700}
+.flash-back{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;transform:rotateY(180deg);font-size:.88rem;line-height:1.8}
+/* ====== الاختبار ====== */
+.quiz-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:30px;flex-wrap:wrap}
+.quiz-tab{border:2px solid var(--lav);background:#fff;color:var(--purple-dark);border-radius:999px;padding:10px 26px;
+  font-family:inherit;font-weight:800;font-size:.95rem;cursor:pointer;transition:.25s}
+.quiz-tab.active{background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;border-color:transparent;box-shadow:var(--shadow)}
+  .q-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--lav-light);padding:22px;margin-bottom:18px}
+.q-card .q-num{display:inline-block;background:var(--gold-light);border:1px solid var(--gold);color:#8d6e00;font-size:.72rem;
+  font-weight:900;border-radius:99px;padding:2px 12px;margin-bottom:8px}
+.q-card h4{font-size:1rem;color:var(--purple-deep);margin-bottom:14px}
+.opt{display:flex;align-items:center;gap:10px;padding:11px 14px;border:2px solid var(--lav-light);border-radius:12px;
+  margin-bottom:8px;cursor:pointer;transition:.2s;font-size:.9rem;color:var(--ink-soft)}
+.opt:hover{border-color:var(--lav);background:var(--lav-lighter)}
+.opt.correct{border-color:var(--green);background:var(--green-light);color:#2e7d32;font-weight:800}
+.opt.wrong{border-color:var(--pink);background:var(--pink-light);color:#ad1457;font-weight:800}
+.opt.locked{cursor:default}
+.opt .letter{width:26px;height:26px;border-radius:8px;background:var(--lav-light);color:var(--purple-dark);display:flex;
+  align-items:center;justify-content:center;font-weight:900;font-size:.8rem;flex-shrink:0}
+.explain{display:none;margin-top:10px;background:var(--blue-light);border-right:4px solid var(--blue);border-radius:10px;
+  padding:10px 14px;font-size:.84rem;color:#155a9c}
+.explain.show{display:block}
+.explain b{color:var(--purple-deep)}
+.tf-btns{display:flex;gap:12px;margin-top:4px}
+.tf-btn{flex:1;padding:12px;border-radius:12px;border:2px solid var(--lav);background:#fff;font-family:inherit;
+  font-weight:900;font-size:1rem;cursor:pointer;transition:.2s;color:var(--ink-soft)}
+.tf-btn:hover{border-color:var(--purple)}
+.tf-btn.correct{border-color:var(--green);background:var(--green-light);color:#2e7d32}
+.tf-btn.wrong{border-color:var(--pink);background:var(--pink-light);color:#ad1457}
+.quiz-result{display:none;text-align:center;background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:44px 24px;border:2px solid var(--lav)}
+.quiz-result.show{display:block}
+.quiz-result .score-circle{width:150px;height:150px;border-radius:50%;margin:0 auto 18px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;background:conic-gradient(var(--purple) 0deg,var(--lav-light) 0deg);transition:1s}
+.quiz-result .score-circle div{background:#fff;width:118px;height:118px;border-radius:50%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-weight:900;color:var(--purple-deep);font-size:1.5rem}
+.quiz-result .score-circle small{font-size:.72rem;color:var(--ink-soft);font-weight:700}
+/* ====== شريط إنجاز الأقسام ====== */
+.study-check{display:flex;align-items:center;gap:8px;margin-top:18px;font-size:.82rem;font-weight:800;color:var(--ink-soft)}
+.study-check input{width:19px;height:19px;accent-color:var(--purple);cursor:pointer}
+/* ====== الفوتر ====== */
+footer{background:linear-gradient(135deg,var(--purple-deep),var(--purple));color:#e9e2f7;text-align:center;padding:44px 18px;margin-top:40px}
+footer h3{font-size:1.2rem;margin-bottom:8px;color:#fff}
+footer p{font-size:.85rem;opacity:.85;max-width:640px;margin:auto}
+/* ====== طباعة ====== */
+@media print{
+  nav,.hero,.no-print,footer,.study-check,.quiz-tabs,.tf-btns{display:none!important}
+  body::before{display:none}
+  body{background:#fff}
+  section{padding:14px 0;page-break-inside:avoid}
+  .card,.tl-card,.q-card{box-shadow:none;border:1px solid #ccc}
+  .qa-a{max-height:none!important}
+}
+@media(max-width:700px){
+  .nav-inner{overflow-x:auto;flex-wrap:nowrap}
+  .hero{padding:60px 14px 50px}
+  .pdca{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ شريط التنقل ============ -->
+<nav>
+  <div class="nav-inner">
+    <div class="brand"><span class="logo">✦</span> منصة الجودة الشاملة</div>
+    <a href="#home">الرئيسية</a>
+    <a href="#map">خريطة المحتوى</a>
+    <a href="#timeline">الخط الزمني</a>
+    <a href="#stages">المراحل التاريخية</a>
+    <a href="#scientists">العلماء والرواد</a>
+    <a href="#theories">النظريات والمدارس</a>
+    <a href="#compare">المقارنات</a>
+    <a href="#summary">الملخص النهائي</a>
+    <a href="#flashcards">بطاقات الحفظ</a>
+    <a href="#quiz">الاختبار</a>
+  </div>
+</nav>
+
+<!-- ============ الرئيسية ============ -->
+<header class="hero" id="home">
+  <h1>✿ إدارة الجودة الشاملة ✿<br>خريطة مذاكرة بصرية شاملة</h1>
+  <p class="sub">المحاضرة الثانية – الفصل الأول – المبحث الثاني<br>
+  تحويل كامل محتوى المحاضرة إلى خرائط ذهنية وشبكات معرفية وبطاقات حفظ واختبارات تفاعلية، لضمان الفهم والاسترجاع السريع وقت الامتحان.</p>
+  <div class="badges">
+    <span class="badge">📜 6 مراحل تاريخية</span>
+    <span class="badge">👨‍🔬 7 رواد وعلماء</span>
+    <span class="badge">🔄 4 نظريات ومدارس</span>
+    <span class="badge">🧠 بطاقات تفاعلية</span>
+    <span class="badge">📝 اختبار شامل</span>
+  </div>
+  <div class="progress-card">
+    <h3>📊 نسبة إنجاز المذاكرة <span id="progressText">0%</span></h3>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <p style="font-size:.8rem;color:var(--ink-soft);margin-top:10px">أكمل دراسة كل قسم ثم علّم على «تمت مذاكرته»، وسيتم حفظ تقدمك تلقائيًا في متصفحك.</p>
+  </div>
+</header>
+
+<!-- ============ خريطة المحتوى الرئيسية ============ -->
+<section id="map">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">🧩 الخريطة الذهنية الكبرى</span>
+      <h2>خريطة المحتوى الرئيسية</h2>
+      <p>انظر إلى هذه الخريطة مرّة واحدة قبل الامتحان لتتذكر كل المراحل والعلماء والنظريات وعلاقاتها ببعضها.</p>
+    </div>
+    <div class="mindmap">
+      <div class="mm">
+        <div class="mm-center">إدارة الجودة الشاملة TQM<small>الفصل الأول – المبحث الثاني</small></div>
+        <div class="mm-connector"></div>
+        <div class="mm-branches">
+          <div class="mm-branch" onclick="location.href='#stages'">
+            <div class="ico">📜</div><h4>المراحل التاريخية</h4>
+            <ul>
+              <li>ما قبل الثورة الصناعية</li>
+              <li>الثورة الصناعية</li>
+              <li>الإدارة العلمية</li>
+              <li>الرقابة الإحصائية</li>
+              <li>تأكيد الجودة</li>
+              <li>الجودة الشاملة</li>
+            </ul>
+          </div>
+          <div class="mm-branch" onclick="location.href='#scientists'">
+            <div class="ico">👨‍🔬</div><h4>العلماء والرواد</h4>
+            <ul>
+              <li>تايلور – فحص الجودة</li>
+              <li>شيوارت – الدائرة</li>
+              <li>ديمنج – أبو الجودة</li>
+              <li>جوران – الثلاثية</li>
+              <li>كروسبي – العيوب الصفرية</li>
+              <li>فايجنباوم – TQC</li>
+              <li>إيشيكاوا – حلقات الجودة</li>
+            </ul>
+          </div>
+          <div class="mm-branch" onclick="location.href='#theories'">
+            <div class="ico">🔄</div><h4>النظريات والمدارس</h4>
+            <ul>
+              <li>دائرة شيوارت</li>
+              <li>PDCA لديمنج</li>
+              <li>ثلاثية الجودة</li>
+              <li>مسلمات كروسبي الأربعة</li>
+            </ul>
+          </div>
+          <div class="mm-branch" onclick="location.href='#summary'">
+            <div class="ico">📖</div><h4>مفهوم TQM</h4>
+            <ul>
+              <li>الإدارة: التأثير في الآخرين</li>
+              <li>الجودة: الوفاء والتجاوز بأقل تكلفة</li>
+              <li>الشاملة: الجودة في كل جانب</li>
+              <li>تعريفان أساسيان</li>
+            </ul>
+          </div>
+          <div class="mm-branch" onclick="location.href='#compare'">
+            <div class="ico">⚖️</div><h4>المقارنات</h4>
+            <ul>
+              <li>قبل × بعد الثورة الصناعية</li>
+              <li>جدول المراحل الست</li>
+              <li>المسؤول عن الجودة في كل مرحلة</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+    <!-- ============ الخط الزمني ============ -->
+<section id="timeline" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">⏳ الخط الزمني</span>
+      <h2>التطور التاريخي لمفهوم إدارة الجودة</h2>
+      <p>رتّب المراحل في ذهنك زمنيًا — كل مرحلة أحدث من سابقتها ومتراكمة عليها.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">1</div><div class="tl-card">
+        <span class="era">قبل القرن الثامن عشر</span>
+        <h4>مرحلة ما قبل الثورة الصناعية</h4>
+        <p style="font-size:.88rem;color:var(--ink-soft)">الرقابة على الجودة من قِبل العاملين أنفسهم (الحرفيون).</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-dot">2</div><div class="tl-card">
+        <span class="era">القرن 18 – 19</span>
+        <h4>مرحلة ما بعد الثورة الصناعية</h4>
+        <p style="font-size:.88rem;color:var(--ink-soft)">صاحب الورشة وعدد من العمال • معايير جودة بسيطة يحددها الرُّبون (الزبائن).</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-dot">3</div><div class="tl-card">
+        <span class="era">مطلع القرن العشرين</span>
+        <h4>الإدارة العلمية — فحص الجودة <small style="color:var(--pink)">(تايلور)</small></h4>
+        <p style="font-size:.88rem;color:var(--ink-soft)">ظهر مفهوم فحص الجودة وقسم مستقل للمفتشين.</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-dot">4</div><div class="tl-card">
+        <span class="era">الثلاثينيات – القرن 20</span>
+        <h4>الرقابة الإحصائية على الجودة <small style="color:var(--pink)">(شيوارت – ديمنج)</small></h4>
+        <p style="font-size:.88rem;color:var(--ink-soft)">ارتبطت بظهور أسلوب الإنتاج الكبير وتنميط الإنتاج.</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-dot">5</div><div class="tl-card">
+        <span class="era">منتصف الخمسينيات</span>
+        <h4>تأكيد الجودة <small style="color:var(--pink)">(جوران – كروسبي)</small></h4>
+        <p style="font-size:.88rem;color:var(--ink-soft)">رقابة شاملة على كل العمليات من التصميم حتى المستهلك.</p>
+      </div></div>
+      <div class="tl-item"><div class="tl-dot">6</div><div class="tl-card">
+        <span class="era">السبعينيات – الثمانينيات</span>
+        <h4>إدارة الجودة الشاملة TQM <small style="color:var(--pink)">(فايجنباوم – إيشيكاوا)</small></h4>
+        <p style="font-size:.88rem;color:var(--ink-soft)">سببها: المنافسة العالمية واكتساح الصناعة اليابانية للأسواق.</p>
+      </div></div>
+    </div>
+    <div class="study-check wrap" style="max-width:900px">
+      <input type="checkbox" class="study-done" data-sec="timeline" id="chk-timeline"><label for="chk-timeline">✅ تمت مذاكرة الخط الزمني</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ المراحل التاريخية ============ -->
+<section id="stages">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">📜 خرائط المراحل</span>
+      <h2>المراحل التاريخية — خريطة لكل مرحلة</h2>
+      <p>كل بطاقة تمثل خريطة مستقلة للمرحلة: زمنها، أحداثها، روّادها، وخصائصها الجوهرية.</p>
+    </div>
+    <div class="grid stage-grid">
+
+      <div class="card stage-card s0">
+        <span class="period">قبل القرن الثامن عشر</span>
+        <h3>① ما قبل الثورة الصناعية</h3>
+        <p class="pioneer">🔑 المسؤول عن الجودة: العاملون أنفسهم</p>
+        <ul>
+          <li>الورش بدأت لا من المُصنع ليحل محل الورشة (صاحب الورشة وعدد من العمال).</li>
+          <li>ازدياد حجم العمل وازدياد عدد العاملين.</li>
+          <li>تصنيع سلعة بأدوات يدوية بسيطة.</li>
+          <li>معايير جودة بسيطة بحددها الزبون (الرُّبون).</li>
+          <li>الرقابة على الجودة <b>من قبل العاملين أنفسهم</b> (الحرفيون).</li>
+        </ul>
+        <div class="key">⭐ نقطة امتحان: لا وجود لمفتشين — الحرفي مسؤول عن جودة منتجه بنفسه.</div>
+      </div>
+
+      <div class="card stage-card s1">
+        <span class="period">القرن 18 – 19</span>
+        <h3>② ما بعد الثورة الصناعية</h3>
+        <p class="pioneer">🔑 المسؤول عن الجودة: المباشر المباشر + العامل نفسه</p>
+        <ul>
+          <li>ظهور المُصنع ليحل محل الورشة.</li>
+          <li>ازدياد حجم العمل وعدد العاملين.</li>
+          <li>تصنيع سلعة بأدوات يدوية بسيطة.</li>
+          <li>معايير جودة بسيطة يحددها الرُّبون.</li>
+          <li>الرقابة من قبل <b>المباشر المباشر وبعده العامل نفسه</b>.</li>
+        </ul>
+        <div class="key">⭐ الفرق عن السابقة: ظهر «المُصنع» والمباشر المباشر كرقيب وسيط.</div>
+      </div>
+
+      <div class="card stage-card s2">
+        <span class="period">مطلع القرن العشرين</span>
+        <h3>③ الإدارة العلمية (فحص الجودة)</h3>
+        <p class="pioneer">🔑 الرائد: فريدريك و. تايلور Frederick W. Taylor (1856–1915)</p>
+        <ul>
+          <li>ظهر مفهوم <b>فحص الجودة</b> (التحقق من الجودة).</li>
+          <li>التركيز على إجراء <b>المطابقة</b> بين معايير محددة مسبقًا وجودة المنتج المنجز.</li>
+          <li>الهدف: التأكد من أن مستوى الجودة المطلوب محافظ عليه باستمرار.</li>
+          <li>سُحبت مسؤولية الفحص من <b>المشرف المباشر</b> وأسندت إلى <b>مفتشين مختصين</b> بالعمل الرقابي على الجودة.</li>
+          <li>الرقابة كانت تهدف لتحديد الانحراف والمسؤول عنه لتوقيع العقوبة المناسبة.</li>
+          <li>تايلور وضع أولى الخطوط لمفهوم الجودة؛ فصل التخطيط عن تطوير العمل.</li>
+          <li>خلق قسم منفصل للمفتشين أصبح معروفًا بـ<b>قسم تأكيد الجودة</b>.</li>
+        </ul>
+        <div class="key">⭐ إسهاما تايلور: عزل العامل من موقع المسؤولية إلى تطوير العمل + خلق قسم منفصل للمفتشين.</div>
+      </div>
+
+      <div class="card stage-card s3">
+        <span class="period">الثلاثينيات – القرن العشرين</span>
+        <h3>④ الرقابة الإحصائية على الجودة</h3>
+        <p class="pioneer">🔑 الرواد: والتر شيوارت + إدوارد ديمنج</p>
+        <ul>
+          <li>ظهرت مع ظهور <b>أسلوب الإنتاج الكبير</b>.</li>
+          <li>صاحبها مفهوم <b>تنميط وتوحيد الإنتاج</b> كوسيلة للقضاء على أخطاء التصنيع.</li>
+          <li>المنتج ذو مواصفات قياسية نمطية موحدة.</li>
+          <li>هذه النمطية مكّنت من استخدام الأساليب والأدوات الإحصائية في الرقابة.</li>
+          <li>شيوارت: خبير إحصائي، رصد تحولات عشوائية (انحرافات) في جميع جوانب الصناعة.</li>
+          <li>إذا عدت الانحرافات الحدود فلا بد من انقطاع العمل.</li>
+          <li>ديمنج: تلمذ على يد شيوارت، له الفضل في النهضة الصناعية لليابان بعد الحرب العالمية الثانية.</li>
+        </ul>
+        <div class="key">⭐ ديمنج يرى: الجودة نتاج قرارات الإدارة العليا، وليست نتاج ممارسات العاملين.</div>
+      </div>
+
+      <div class="card stage-card s4">
+        <span class="period">منتصف الخمسينيات</span>
+        <h3>⑤ تأكيد الجودة (Quality Assurance)</h3>
+        <p class="pioneer">🔑 الرواد: جوزيف جوران + فيليب كروسبي</p>
+        <ul>
+          <li>الفلسفة: الوصول لمستوى عالٍ من الجودة وتحقيق إنتاج <b>بدون أخطاء</b> يتطلب رقابة شاملة.</li>
+          <li>الرقابة الشاملة على <b>كافة العمليات</b> بدءًا من مرحلة <b>تصميم المنتج</b> وانتهاءً بوصوله إلى يد المستهلك.</li>
+          <li>جودة = <b>جهود مشتركة من جميع الأقسام</b> المعنية بتنفيذ تلك المراحل.</li>
+          <li>جوران: حدد الأدوار التي تقوم بها الإدارة فيما يتعلق بالجودة على مستويين.</li>
+          <li>كروسبي: نظرية العيوب الصفرية Zero Defects.</li>
+        </ul>
+        <div class="key">⭐ الجديد في هذه المرحلة: الجودة مسؤولية جماعية تشمل كل الأقسام وليس قسم الجودة وحده.</div>
+      </div>
+
+      <div class="card stage-card s5">
+        <span class="period">السبعينيات – الثمانينيات</span>
+        <h3>⑥ إدارة الجودة الشاملة TQM</h3>
+        <p class="pioneer">🔑 الرواد: أرماند فايجنباوم + كاورو إيشيكاوا</p>
+        <ul>
+          <li><b>السبب</b>: شدة المنافسة العالمية واكتساح الصناعة اليابانية للأسواق.</li>
+          <li>خسارة الشركات الأمريكية والأوروبية حصصًا كبيرة من هذه الأسواق.</li>
+          <li>شركة <b>IBM</b> رسمت استراتيجية للجودة ضمن ثلاثة محاور:
+            <br>1️⃣ إرضاء الزبون وتلبية ما يريده ويتوقعه.
+            <br>2️⃣ الجودة مسؤولية الجميع من قمة الهرم التنظيمي حتى قاعدته.
+            <br>3️⃣ المطلوب تحقيق الجودة في كل شيء (الأنظمة والثقافة والهيكل التنظيمي وأساليب العمل...).</li>
+          <li>فايجنباوم: مفهوم الرقابة الكلية للجودة <b>TQC</b>.</li>
+          <li>إيشيكاوا: رائد مفهوم حلقات الجودة (اليابان).</li>
+        </ul>
+        <div class="key">⭐ الجودة هنا تشمل كل شيء: الأنظمة + الثقافة + الهيكل + أساليب العمل.</div>
+      </div>
+
+    </div>
+    <div class="study-check wrap" style="max-width:1250px">
+      <input type="checkbox" class="study-done" data-sec="stages" id="chk-stages"><label for="chk-stages">✅ تمت مذاكرة المراحل التاريخية الست</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ العلماء والرواد ============ -->
+<section id="scientists" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">🕸️ الشبكة المعرفية للعلماء</span>
+      <h2>علماء ورواد إدارة الجودة</h2>
+      <p>كل عالم مرتبط مباشرة بمرحلته وإنجازه — احفظ الاسم مع الإنجاز كوحدة واحدة.</p>
+    </div>
+    <div class="grid sci-grid">
+
+      <div class="card sci-card" style="position:relative">
+        <span class="flag">🇺🇸</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#5c9ded,#1565c0)">تا</div>
+        <h3>فريدريك و. تايلور</h3>
+        <div class="dates">Frederick W. Taylor (1856 – 1915)</div>
+        <span class="role">رائد الإدارة العلمية — عالم أمريكي</span>
+        <ul>
+          <li>وضع أولى الخطوط لمفهوم الجودة.</li>
+          <li>فصل التخطيط عن تطوير العمل.</li>
+          <li>عزل العامل من موقع المسؤولية.</li>
+          <li>خلق قسم منفصل للمفتشين أصبح معروفًا بقسم تأكيد الجودة.</li>
+        </ul>
+      </div>
+
+      <div class="card sci-card" style="position:relative">
+        <span class="flag">🇺🇸</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#66bb6a,#2e7d32)">ش</div>
+        <h3>والتر أ. شيوارت</h3>
+        <div class="dates">Walter A. Shewhart (1891 – 1967)</div>
+        <span class="role">لقب: أبو الرقابة الإحصائية — عالم أمريكي</span>
+        <ul>
+          <li>خبير إحصائي.</li>
+          <li>رصد تحولات عشوائية (انحرافات) تحدث في جميع جوانب الصناعة تحول دون انهائها.</li>
+          <li>رأى أن هذه الانحرافات إذا عدت الحدود فلا بد من انقطاع العمل.</li>
+          <li>رسم مسارًا للأداء يعرف بـ<b>دائرة شيوارت</b>.</li>
+        </ul>
+      </div>
+
+      <div class="card sci-card" style="position:relative">
+        <span class="flag">🇺🇸</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#7e57c2,#4527a0)">دي</div>
+        <h3>و. إدواردز ديمنج</h3>
+        <div class="dates">W. Edwards Deming (1900 – 1993)</div>
+        <span class="role">لقب: أبو الجودة — عالم أمريكي</span>
+        <ul>
+          <li>تتلمذ وتأثر بأعمال شيوارت في استخدام التحليل الإحصائي.</li>
+          <li>له الفضل في حدوث النهضة في اليابان عقب الحرب العالمية الثانية.</li>
+          <li>يرى أن الجودة نتاج القرارات التي تتخذها الإدارة العليا، وليست نتاج ممارسات العاملين.</li>
+          <li>عدّل دائرة شيوارت وخلّصها في فلسفته وأطلق عليها <b>PDCA</b>.</li>
+        </ul>
+      </div>
+
+      <div class="card sci-card" style="position:relative">
+        <span class="flag">🇺🇸</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#ffb300,#e65100)">جو</div>
+        <h3>جوزيف م. جوران</h3>
+        <div class="dates">Josef M. Juran (1904 – 2008)</div>
+        <span class="role">صاحب ثلاثية الجودة — عالم أمريكي</span>
+        <ul>
+          <li>أول من صنّف العملاء إلى: <b>عميل داخلي Internal Customer</b> (يعمل داخل المنظمة ويستفيد من خدمات/منتجات أقسام أخرى) و<b>عميل خارجي External Customer</b> (المستفيد من الخدمة أو المنتج وليس من أعضاء المنظمة).</li>
+          <li>بلور فلسفته في <b>ثلاثية الجودة</b>: التخطيط للجودة، مراقبة الجودة، تحسين الجودة.</li>
+          <li>أدوار الإدارة في الجودة على مستويين.</li>
+        </ul>
+  </div>
+        <div class="card sci-card" style="position:relative">
+        <span class="flag">🇺🇸</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#f48fb1,#ad1457)">كر</div>
+        <h3>فيليب ب. كروسبي</h3>
+        <div class="dates">Philip B. Crosby (1926 – 2001)</div>
+        <span class="role">صاحب نظرية العيوب الصفرية — عالم أمريكي</span>
+        <ul>
+          <li>ينسب إليه مفهوم «افعل الشيء الصحيح من أول مرة».</li>
+          <li>يؤكد على مبدأ <b>Zero Defects</b> للحصول على منتج مقبول 100%.</li>
+          <li>لخص رؤيته في 4 مسلمات أساسية (انظر قسم النظريات).</li>
+        </ul>
+      </div>
+
+      <div class="card sci-card" style="position:relative">
+        <span class="flag">🇺🇸</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#26a69a,#00695c)">فا</div>
+        <h3>أرماند فايجنباوم</h3>
+        <div class="dates">Armand Feigenbaum (1920 – 2014)</div>
+        <span class="role">صاحب الرقابة الكلية للجودة TQC</span>
+        <ul>
+          <li>اقترح مفهوم الرقابة الكلية للجودة <b>Total Quality Control</b>.</li>
+          <li>يركز على أن الجودة مسؤولية <b>جميع الموظفين</b> في المنظمة.</li>
+          <li>دور فريق الرقابة على الجودة: <b>ميسرون وليسوا مسؤولين عن الجودة</b> — فالجودة مسؤولية كل فرد.</li>
+          <li>أكد كسابقيه على أن الإدارة العليا يجب أن يكون لها الريادة في تبني مفهوم الجودة.</li>
+        </ul>
+      </div>
+
+      <div class="card sci-card" style="position:relative">
+        <span class="flag">🇯🇵</span>
+        <div class="avatar" style="background:linear-gradient(135deg,#ef5350,#b71c1c)">إي</div>
+        <h3>كاورو إيشيكاوا</h3>
+        <div class="dates">Kaoru Ishikawa (1915 – 1989)</div>
+        <span class="role">رائد مفهوم حلقات الجودة — عالم ياباني</span>
+        <ul>
+          <li>عالم ياباني، رائد مفهوم <b>حلقات الجودة</b>.</li>
+          <li>من رواد مرحلة إدارة الجودة الشاملة.</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="study-check wrap" style="max-width:1250px">
+      <input type="checkbox" class="study-done" data-sec="scientists" id="chk-sci"><label for="chk-sci">✅ تمت مذاكرة العلماء والرواد السبعة</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ النظريات والمدارس ============ -->
+<section id="theories">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">🔄 النماذج والدورات</span>
+      <h2>النظريات والمدارس وأصحابها</h2>
+      <p>اربط كل نموذج بصاحبه — هذا من أكثر أسئلة الامتحان تكرارًا.</p>
+    </div>
+    <div class="grid theory-grid">
+
+      <div class="card theory-card">
+        <h3>🌀 دائرة شيوارت</h3>
+        <div class="owner">والتر أ. شيوارت — 4 خطوات</div>
+        <div class="shewhart-cycle">
+          <span>① خطط Plan</span><span class="arrow">⬅</span>
+          <span>② اختبر/جرّب Test</span><span class="arrow">⬅</span>
+          <span>③ لاحظ نتائج التجربة Observe</span><span class="arrow">⬅</span>
+          <span>④ درس النتائج Study result</span>
+        </div>
+        <p style="font-size:.83rem;color:var(--ink-soft);margin-top:12px">تعمل دائرة شيوارت على: التركيز على الأدوات الإحصائية لتحديد الانحرافات + مساعدة الإدارة على اتخاذ الإجراءات التصحيحية لإزالة الانحرافات + ازدياد القدرة على التنبؤ بمستوى الجودة في المستقبل باستخدام الأرصدة ⬅ تحديد الانحرافات ⬅ تصحيحها ⬅ التنبؤ بالجودة.</p>
+      </div>
+
+      <div class="card theory-card">
+        <h3>🔄 خلاصة فلسفة ديمنج — PDCA</h3>
+        <div class="owner">إدواردز ديمنج — عدّل دائرة شيوارت</div>
+        <div class="pdca">
+          <div class="p">خطط<small>Plan</small></div>
+          <div class="d">نفّذ<small>Do</small></div>
+          <div class="c">قم بمعايرة<small>Check</small></div>
+          <div class="a">حسّن بناءً على التقييم<small>Act</small></div>
+        </div>
+        <p style="font-size:.83rem;color:var(--ink-soft);margin-top:12px">حلقة مفرغة مستمرة للتحسين الدائم: خطط ← نفّذ ← ا Check ← حسّن ← ثم عد للتخطيط من جديد.</p>
+      </div>
+      <div class="card theory-card">
+        <h3>🔺 ثلاثية الجودة Quality Trilogy</h3>
+        <div class="owner">جوزيف م. جوران</div>
+        <div class="trilogy">
+          <div class="t1">📋 التخطيط للجودة <small style="font-weight:600">Quality planning</small></div>
+          <div class="t2">👁️ مراقبة الجودة <small style="font-weight:600">Quality control</small></div>
+          <div class="t3">📈 تحسين الجودة <small style="font-weight:600">Quality improvement</small></div>
+        </div>
+        <p style="font-size:.83rem;color:var(--ink-soft);margin-top:12px">أدوار الإدارة في الجودة عند جوران على مستويين: المستوى الأول: دور المنشأة ككل في تقديم منتج ذو جودة مرتفعة • المستوى الثاني: دور كل قسم داخل المنشأة في القيام بالعمل الموكل إليه بمستوى جودة مرتفع.</p>
+      </div>
+
+      <div class="card theory-card">
+        <h3>📌 مسلمات كروسبي الأربعة</h3>
+        <div class="owner">فيليب ب. كروسبي — Absolutes of Quality</div>
+        <ol class="absolutes">
+          <li><b>الجودة تعني المطابقة للمواصفات:</b> لذا يجب أن تكون المواصفات محددة بوضوح أمام جميع العاملين بالمنشأة حتى يستطيعوا أداء عملهم بنجاح.</li>
+          <li><b>الجودة تأتي من خلال منع الأخطاء:</b> من خلال التدريب.</li>
+          <li><b>معيار جودة الأداء هو العيوب الصفرية:</b> فالأخطاء غير محتملة الحدوث.</li>
+          <li><b>قياس الجودة</b> يتم من خلال التقييم لعدم مطابقة المواصفات.</li>
+        </ol>
+      </div>
+
+      <div class="card theory-card">
+        <h3>👥 مفهوم العميل الداخلي والخارجي</h3>
+        <div class="owner">جوزيف م. جوران — أول من صنّفها</div>
+        <div class="trilogy">
+          <div class="t1">🏠 العميل الداخلي Internal Customer<small style="font-weight:600">يعمل داخل المنظمة ويستفيد من خدمات/منتجات أقسام أخرى لإنهاء عمله بنجاح</small></div>
+          <div class="t2">🌍 العميل الخارجي External Customer<small style="font-weight:600">المستفيد من الخدمة أو المنتج وليس من أعضاء المنظمة</small></div>
+        </div>
+      </div>
+
+      <div class="card theory-card">
+        <h3>🌸 ركائز فلسفة الجودة الشاملة</h3>
+        <div class="owner">استراتيجية IBM — ثلاثة محاور</div>
+        <ol class="absolutes">
+          <li><b>إرضاء الزبون</b> وتلبية ما يريده ويتوقعه.</li>
+          <li><b>الجودة مسؤولية الجميع</b> من قمة الهرم التنظيمي حتى قاعدته.</li>
+          <li><b>تحقيق الجودة في كل شيء:</b> الأنظمة، الثقافة التنظيمية، الهيكل التنظيمي، أساليب العمل...</li>
+        </ol>
+        <p style="font-size:.83rem;color:var(--ink-soft);margin-top:10px">ملاحظة مهمة: معظم فلاسفة الجودة ركزوا على أن المسؤولية الأولى تقع على عاتق <b>الإدارة العليا</b> نظرًا لتبنيها وقناعتها بتطبيق مدخل إدارة الجودة الشاملة.</p>
+      </div>
+
+    </div>
+    <div class="study-check wrap" style="max-width:1250px">
+      <input type="checkbox" class="study-done" data-sec="theories" id="chk-th"><label for="chk-th">✅ تمت مذاكرة النظريات والمدارس</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ المقارنات ============ -->
+<section id="compare" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">⚖️ جداول المقارنة البصرية</span>
+      <h2>المقارنات بين المراحل</h2>
+      <p>هنا تكمن أسئلة «فرّق بين» — ركّز على عمود «المسؤول عن الجودة» في كل مرحلة.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr>
+          <th>المرحلة</th><th>الفترة الزمنية</th><th>المسؤول عن الجودة</th><th>أهم الأحداث / الأدوات</th><th>الرواد</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>ما قبل الثورة الصناعية</td><td>قبل القرن 18</td><td>العاملون أنفسهم (الحرفيون)</td><td>ورش يدوية • معايير بسيطة يحددها الزبون</td><td>—</td></tr>
+          <tr><td>ما بعد الثورة الصناعية</td><td>القرن 18–19</td><td>المباشر المباشر ثم العامل نفسه</td><td>ظهور المصنع • إنتاج بأدوات يدوية</td><td>—</td></tr>
+          <tr><td>الإدارة العلمية (فحص الجودة)</td><td>مطلع القرن 20</td><td>مفتشون مختصون (قسم تأكيد الجودة)</td><td>المطابقة بين معايير محددة والمنتج • تحديد المسؤول والعقوبة</td><td>تايلور</td></tr>
+          <tr><td>الرقابة الإحصائية على الجودة</td><td>الثلاثينيات</td><td>مفتشون + أدوات إحصائية</td><td>الإنتاج الكبير • التنميط والتوحيد • دائرة شيوارت</td><td>شيوارت، ديمنج</td></tr>
+          <tr><td>تأكيد الجودة</td><td>منتصف الخمسينيات</td><td>جميع الأقسام المعنية (جهود مشتركة)</td><td>رقابة من التصميم حتى المستهلك • إنتاج بلا أخطاء</td><td>جوران، كروسبي</td></tr>
+          <tr><td>إدارة الجودة الشاملة TQM</td><td>السبعينيات–الثمانينيات</td><td>الجميع من قمة الهرم حتى قاعدته</td><td>الجودة في كل شيء • TQC • حلقات الجودة</td><td>فايجنباوم، إيشيكاوا</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid compare-cards">
+      <div class="card">
+        <h4>🏭 قبل الثورة الصناعية</h4>
+        <ul style="list-style:none;font-size:.88rem;color:var(--ink-soft)">
+          <li>✦ ورش صغيرة بأدوات يدوية بسيطة</li>
+          <li>✦ العامل الحرفي يراقب جودة منتجه بنفسه</li>
+          <li>✦ معايير الجودة بسيطة يحددها الزبون مباشرة</li>
+        </ul>
+      </div>
+      <div class="vs"><span>VS</span></div>
+      <div class="card">
+        <h4>🏭 بعد الثورة الصناعية</h4>
+        <ul style="list-style:none;font-size:.88rem;color:var(--ink-soft)">
+          <li>✦ ظهر المصنع وازداد عدد العاملين</li>
+          <li>✦ المباشر المباشر يراقب ثم العامل نفسه</li>
+          <li>✦ الجودة ما زالت بمعايير بسيطة يحددها الرُّبون</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="max-width:900px;margin:24px auto 0">
+      <h4 style="color:var(--purple-deep);margin-bottom:10px">🔑 القاعدة الذهبية للمقارنة</h4>
+      <p style="font-size:.9rem;color:var(--ink-soft)">تدرّج المسؤولية عن الجودة عبر التاريخ: <b>العامل نفسه ← المباشر المباشر ← مفتشون مختصون ← جميع الأقسام ← الجميع من القمة حتى القاعدة</b>. كلما تقدمنا في المراحل اتسعت دائرة المسؤولية حتى شملت المنظمة كلها.</p>
+    </div>
+    <div class="study-check wrap" style="max-width:1250px">
+      <input type="checkbox" class="study-done" data-sec="compare" id="chk-cmp"><label for="chk-cmp">✅ تمت مذاكرة جداول المقارنة</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ الملخص النهائي ============ -->
+<section id="summary">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">🎯 استراتيجية السؤال والجواب</span>
+      <h2>الملخص النهائي — مراجعة ما قبل الامتحان</h2>
+      <p>اختبر نفسك: اقرأ السؤال، أجب في ذهنك، ثم افتح الجواب. <b>زر الطباعة</b> أسفل القسم يحفظ الملخص PDF.</p>
+    </div>
+    <div class="qa">
+      <div class="qa-item"><div class="qa-q">من رائد مرحلة الإدارة العلمية وما إسهامه الأهم؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>فريدريك و. تايلور.</b> وضع أولى الخطوط لمفهوم الجودة، ونفصل التخطيط عن تطوير العمل، وخلق قسمًا منفصلًا للمفتشين أصبح معروفًا بقسم تأكيد الجودة.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما المقصود بفحص الجودة في مرحلة الإدارة العلمية؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner">إجراء <b>المطابقة</b> بين معايير محددة مسبقًا وبين جودة المنتج المنجز، للتأكد أن مستوى الجودة المطلوب محافظ عليه باستمرار، مع سحب مهمة الفحص من المشرف المباشر وإسنادها لمفتشين مختصين.</div></div></div>
+      <div class="qa-item"><div class="qa-q">متى ولماذا ظهرت الرقابة الإحصائية على الجودة؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner">في <b>الثلاثينيات</b> مع ظهور <b>أسلوب الإنتاج الكبير</b> ومفهوم تنميط وتوحيد الإنتاج، حيث مكّنت المواصفات النمطية الموحدة من استخدام الأساليب والأدوات الإحصائية في الرقابة.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما دائرة شيوارت وما خطواتها؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner">مسار رسمه <b>والتر شيوارت</b> للأداء: <b>① خطط ② اختبر/جرّب ③ لاحظ نتائج التجربة ④ درس النتائج</b>. وتعمل على التركيز على الأدوات الإحصائية لتحديد الانحرافات ومساعدة الإدارة على اتخاذ إجراءات تصحيحية.</div></div></div>
+  <div class="qa-item"><div class="qa-q">من «أبو الجودة» وما أشهر أفكاره؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>و. إدواردز ديمنج.</b> له الفضل في النهضة الصناعية اليابانية بعد الحرب العالمية الثانية، ويرى أن الجودة نتاج قرارات الإدارة العليا وليست ممارسات العاملين، وعدّل دائرة شيوارت إلى <b>PDCA</b>.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما حلقة PDCA وخطواتها؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>خطط Plan ← نفّذ Do ← قم بمعايرة Check ← حسّن بناءً على التقييم Act</b>، وهي خلاصة فلسفة ديمنج المعدّلة عن دائرة شيوارت.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما ثلاثية الجودة وصاحبها؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>جوزيف م. جوران:</b> ① التخطيط للجودة ② مراقبة الجودة ③ تحسين الجودة.</div></div></div>
+      <div class="qa-item"><div class="qa-q">من أول من صنّف العملاء إلى داخلي وخارجي؟ وما الفرق؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>جوران.</b> العميل الداخلي: يعمل داخل المنظمة ويستفيد من خدمات/منتجات أقسام أخرى لإنهاء عمله. العميل الخارجي: المستفيد من الخدمة أو المنتج وليس من أعضاء المنظمة.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما مسلمات كروسبي الأربعة؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner">① الجودة تعني المطابقة للمواصفات ② الجودة تأتي من خلال منع الأخطاء (بالتدريب) ③ معيار جودة الأداء هو العيوب الصفرية ④ قياس الجودة يتم بالتقييم لعدم مطابقة المواصفات. وشعاره: «افعل الشيء الصحيح من أول مرة».</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما نظرية Zero Defects وصاحبها؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>فيليب كروسبي:</b> الأخطاء غير محتملة الحدوث، والهدف منتج مقبول <b>100%</b>.</div></div></div>
+      <div class="qa-item"><div class="qa-q">متى ظهر مفهوم إدارة الجودة الشاملة وما سبب ظهوره؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner">بين <b>السبعينيات والثمانينيات</b>، بسبب شدة المنافسة العالمية واكتساح الصناعة اليابانية للأسواق وخسارة الشركات الأمريكية والأوروبية حصصًا كبيرة.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما محاور استراتيجية IBM للجودة؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner">① إرضاء الزبون وتلبية ما يريده ويتوقعه ② الجودة مسؤولية الجميع من قمة الهرم حتى قاعدته ③ تحقيق الجودة في كل شيء (الأنظمة والثقافة والهيكل وأساليب العمل).</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما مفهوم TQC وصاحبه؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>أرماند فايجنباوم:</b> الرقابة الكلية للجودة — الجودة مسؤولية جميع الموظفين، وفريق الرقابة <b>ميسرون وليسوا مسؤولين</b> عن الجودة، مع ريادة الإدارة العليا.</div></div></div>
+      <div class="qa-item"><div class="qa-q">ما مفهوم إدارة الجودة الشاملة TQM؟ (عناصره الثلاثة)<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>الإدارة:</b> القدرة على التأثير في الآخرين • <b>الجودة:</b> الوفاء بمتطلبات المستفيد وتجاوزها لتحقيق أعلى درجة من الجودة المثالية بأقل تكلفة ممكنة في كل المراحل • <b>الشاملة:</b> البحث عن الجودة في كل جانب من جوانب العمل، من التعرف على احتياجات المستفيد حتى تقويم رضاه.</div></div></div>
+      <div class="qa-item"><div class="qa-q">اذكر التعريفين الأساسيين لإدارة الجودة الشاملة.<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>(1) منهج إداري شامل</b> يهدف لخلق ثقافة تنظيمية يُشرك جميع العاملين في التحسين المستمر للخدمات والمنتجات بغية تحقيق توقعات العملاء أو تجاوزها باستخدام الأساليب الإحصائية والكمية والتكنولوجية الحديثة. <b>(2) فلسفة إدارية</b> تتضمن مبادئ إرشادية دعائم التحسين المستمر، تطبق الأساليب الكمية والموارد البشرية لتحسين خدمات المنظومة وتحقيق التميز في جودة أداء المنظومة ككل بالوفاء باحتياجات العاملين.</div></div></div>
+        <div class="qa-item"><div class="qa-q">من هو إيشيكاوا وما إسهامه؟<span class="toggle">+</span></div>
+        <div class="qa-a"><div class="qa-a-inner"><b>كاورو إيشيكاوا (1915–1989)</b> عالم ياباني، رائد مفهوم حلقات الجودة.</div></div></div>
+    </div>
+    <div class="no-print" style="text-align:center;margin-top:30px">
+      <button class="btn btn-gold" onclick="window.print()">🖨️ طباعة الملخص / حفظه PDF</button>
+    </div>
+    <div class="study-check wrap" style="max-width:880px">
+      <input type="checkbox" class="study-done" data-sec="summary" id="chk-sum"><label for="chk-sum">✅ تمت مذاكرة الملخص النهائي</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ بطاقات الحفظ ============ -->
+<section id="flashcards" style="background:#fff">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">🃏 بطاقات التذكر</span>
+      <h2>بطاقات الحفظ التفاعلية</h2>
+      <p>اضغط على أي بطاقة لقلبها وكشف الإجابة — استخدمها للمراجعة السريعة المتكررة (Chunking).</p>
+    </div>
+    <div class="grid flash-grid">
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من رائد الإدارة العلمية؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">فريدريك و. تايلور<br><small>(1856–1915) عالم أمريكي</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من «أبو الجودة»؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">و. إدواردز ديمنج<br><small>له الفضل في النهضة اليابانية بعد الحرب</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من صاحب ثلاثية الجودة؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">جوزيف م. جوران<br><small>(1904–2008) صنّف العملاء داخلي/خارجي</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من صاحب نظرية Zero Defects؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">فيليب ب. كروسبي<br><small>(1926–2001) «افعل الشيء الصحيح من أول مرة»</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من صاحب مفهوم TQC؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">أرماند فايجنباوم<br><small>(1920–2014) فريق الرقابة ميسرون لا مسؤولون</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من رائد حلقات الجودة؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">كاورو إيشيكاوا<br><small>(1915–1989) عالم ياباني</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">عالم</span><h4>من «أبو الرقابة الإحصائية»؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">والتر أ. شيوارت<br><small>(1891–1967) رسم دائرة شيوارت</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">مرحلة</span><h4>متى ظهر مفهوم TQM؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">بين السبعينيات والثمانينيات<br><small>بسبب المنافسة العالمية والصناعة اليابانية</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+  <div class="flash-face flash-front"><span class="cat">مرحلة</span><h4>من المسؤول عن الجودة قبل الثورة الصناعية؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">العاملون أنفسهم (الحرفيون)</div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">مرحلة</span><h4>مع ماذا ظهرت الرقابة الإحصائية؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">مع ظهور أسلوب الإنتاج الكبير<br><small>ومفهوم تنميط وتوحيد الإنتاج</small></div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">مفهوم</span><h4>ما خطوات PDCA؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">خطط ← نفّذ ← قم بمعايرة ← حسّن بناءً على التقييم</div>
+      </div></div>
+      <div class="flash"><div class="flash-inner">
+        <div class="flash-face flash-front"><span class="cat">مفهوم</span><h4>ما المقصود بـ«الشاملة» في TQM؟</h4><span class="hint">اضغط للقلب 🔄</span></div>
+        <div class="flash-face flash-back">البحث عن الجودة في كل جانب من جوانب العمل: من التعرف على احتياجات المستفيد حتى تقويم رضاه</div>
+      </div></div>
+    </div>
+    <div class="study-check wrap" style="max-width:1250px">
+      <input type="checkbox" class="study-done" data-sec="flash" id="chk-flash"><label for="chk-flash">✅ تمت مراجعة بطاقات الحفظ</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ الاختبار ============ -->
+<section id="quiz">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag">📝 التدريب والتقييم</span>
+      <h2>الاختبار الشامل</h2>
+      <p>اختبر نفسك الآن — تظهر التفسيرات فور الإجابة، وتحصل على نتيجتك النهائية في آخر كل جزء.</p>
+    </div>
+    <div class="quiz-tabs no-print">
+      <button class="quiz-tab active" id="tabMcq" onclick="switchQuiz('mcq')">🅰️ اختيار من متعدد</button>
+      <button class="quiz-tab" id="tabTf" onclick="switchQuiz('tf')">✔️ صح وخطأ</button>
+    </div>
+    <div id="mcqArea"></div>
+    <div id="tfArea" style="display:none"></div>
+    <div style="text-align:center;margin-top:26px" class="no-print">
+      <button class="btn btn-primary" onclick="gradeQuiz()">🏁 إنهاء الاختبار وعرض النتيجة</button>
+      <button class="btn btn-ghost" onclick="resetQuiz()">🔄 إعادة الاختبار</button>
+    </div>
+    <div class="quiz-result" id="quizResult">
+      <div class="score-circle" id="scoreCircle"><div><span id="scoreNum">0%</span><small>نتيجتك</small></div></div>
+      <h3 id="scoreMsg" style="color:var(--purple-deep)"></h3>
+      <p id="scoreDetail" style="color:var(--ink-soft);font-size:.9rem"></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h3>✿ منصة إدارة الجودة الشاملة ✿</h3>
+  <p>خريطة مذاكرة بصرية شاملة أُعدت من محتوى المحاضرة الثانية (الفصل الأول – المبحث الثاني) بالكامل — بالتوفيق في الامتحان 🌟</p>
+</footer>
+
+<script>
+/* ================== بيانات الأسئلة ================== */
+const MCQ = [
+ {q:"متى ظهر مفهوم إدارة الجودة الشاملة TQM؟",
+  opts:["مطلع القرن العشرين","بين سبعينيات وثمانينيات القرن العشرين","منتصف الخمسينيات","قبل القرن الثامن عشر"],a:1,
+  ex:"ظهر المفهوم بين السبعينيات والثمانينيات بسبب شدة المنافسة العالمية واكتساح الصناعة اليابانية للأسواق."},
+ {q:"من رائد مرحلة الإدارة العلمية (فحص الجودة)؟",
+  opts:["والتر شيوارت","جوزيف جوران","فريدريك تايلور","أرماند فايجنباوم"],a:2,
+  ex:"تايلور (1856–1915) وضع أولى الخطوط لمفهوم الجودة وخلق قسمًا منفصلًا للمفتشين."},
+ {q:"ما أهم إسهامين لتايلور في مجال الجودة؟",
+  opts:["فصل التخطيط عن تطوير العمل + خلق قسم منفصل للمفتشين","رسم دائرة الجودة + تدريب العمال","تصنيف العملاء + العيوب الصفرية","حلقات الجودة + TQC"],a:0,
+  ex:"فصل التخطيط عن تطوير العمل وعزل العامل من موقع المسؤولية، وخلق قسم منفصل للمفتشين عرف بقسم تأكيد الجودة."},
+{q:"ماذا حدث لمهمة فحص الجودة في مرحلة الإدارة العلمية؟",
+  opts:["بقيت مسؤولية العامل نفسه","سُحبت من المشرف المباشر وأسندت لمفتشين مختصين","ألغيت تمامًا","أسندت للزبائن"],a:1,
+  ex:"سُحبت مسؤولية الفحص من المشرف المباشر وأُسندت إلى مفتشين مختصين بالعمل الرقابي على الجودة."},
+ {q:"مع ظهور أي أسلوب ظهرت الرقابة الإحصائية على الجودة في الثلاثينيات؟",
+  opts:["الإنتاج اليدوي الفردي","أسلوب الإنتاج الكبير","الإدارة الورقية","التسويق الحديث"],a:1,
+  ex:"ظهرت مع أسلوب الإنتاج الكبير وتنميط وتوحيد الإنتاج ذي المواصفات النمطية الموحدة."},
+ {q:"ماذا رسم والتر شيوارت لقياس الأداء؟",
+  opts:["هرم احتياجات ماسلو","مسارًا للأداء يعرف بدائرة شيوارت","منحنى الطلب والعرض","شجرة القرارات"],a:1,
+  ex:"رسم مسارًا للأداء يعرف بدائرة شيوارت (خطط – اختبر – لاحظ – درس النتائج)."},
+ {q:"من عدّل دائرة شيوارت وأطلق عليها PDCA؟",
+  opts:["كروسبي","جوران","ديمنج","إيشيكاوا"],a:2,
+  ex:"ديمنج عدّل دائرة شيوارت وخلّصها في فلسفته وأطلق عليها PDCA (خطط – نفّذ – قم بمعايرة – حسّن)."},
+ {q:"ماذا يرى ديمنج بخصوص مصدر الجودة؟",
+  opts:["نتاج ممارسات العاملين","نتاج القرارات التي تتخذها الإدارة العليا","نتاج المفتشين فقط","نتاج الموردين"],a:1,
+  ex:"يرى ديمنج أن الجودة نتاج القرارات التي تتخذها الإدارة العليا وليست نتاج ممارسات العاملين."},
+ {q:"من أول من صنّف العملاء إلى داخلي وخارجي؟",
+  opts:["فايجنباوم","جوران","تايلور","كروسبي"],a:1,
+  ex:"جوران أول من صنّف العملاء: عميل داخلي (داخل المنظمة) وعميل خارجي (المستفيد النهائي)."},
+ {q:"ما مكونات ثلاثية الجودة Quality Trilogy لجوران؟",
+  opts:["الخطط – التنظيم – التوجيه","التخطيط للجودة – مراقبة الجودة – تحسين الجودة","الإنتاج – التسويق – التوزيع","الفحص – الرقابة – التأكيد"],a:1,
+  ex:"ثلاثية جوران: التخطيط للجودة، مراقبة الجودة، تحسين الجودة."},
+ {q:"مفهوم Zero Defects (العيوب الصفرية) يرتبط بـ:",
+  opts:["شيوارت","كروسبي","ديمنج","إيشيكاوا"],a:1,
+  ex:"كروسبي صاحب نظرية العيوب الصفرية وشعار «افعل الشيء الصحيح من أول مرة» للحصول على منتج مقبول 100%."},
+ {q:"من صاحب مفهوم الرقابة الكلية للجودة TQC؟",
+  opts:["أرماند فايجنباوم","فريدريك تايلور","والتر شيوارت","جوزيف جوران"],a:0,
+  ex:"فايجنباوم اقترح TQC ويرى أن الجودة مسؤولية جميع الموظفين وأن فريق الرقابة ميسرون لا مسؤولون."},
+ {q:"ما سبب ظهور مفهوم إدارة الجودة الشاملة؟",
+  opts:["زيادة أجور العمال","شدة المنافسة العالمية واكتساح الصناعة اليابانية للأسواق","تطور وسائل النقل","قلة الموارد الطبيعية"],a:1,
+  ex:"شدة المنافسة العالمية واكتساح الصناعة اليابانية للأسواق وخسارة الشركات الأمريكية والأوروبية حصصًا كبيرة."},
+ {q:"في مرحلة ما قبل الثورة الصناعية، من كان يتحمل مسؤولية الجودة؟",
+  opts:["مفتشو قسم الجودة","الإدارة العليا","العاملون أنفسهم (الحرفيون)","المستهلكون"],a:2,
+  ex:"الرقابة على الجودة كانت من قبل العاملين أنفسهم؛ فالحرفي يراقب جودة منتجه بنفسه."},
+ {q:"ما المقصود بعنصر «الشاملة» في مفهوم TQM؟",
+  opts:["جودة المنتج فقط","البحث عن الجودة في كل جانب من جوانب العمل من التعرف على احتياجات المستفيد حتى تقويم رضاه","جودة الإدارة العليا فقط","شمول الأرباح فقط"],a:1,
+  ex:"الشاملة تعني البحث عن الجودة في كل جانب من جوانب العمل، ابتداءً من التعرف على احتياجات المستفيد وانتهاءً بتقويم رضاه."}
+];
+
+const TF = [
+ {q:"تايلور وضع أولى الخطوط لمفهوم الجودة عبر فصل التخطيط عن تطوير العمل.",a:true,
+  ex:"صحيح — هذا أهم إسهامين له: فصل التخطيط عن تطوير العمل وخلق قسم منفصل للمفتشين."},
+ {q:"يرى ديمنج أن الجودة نتاج الممارسات التي يقوم بها العاملون وليس قرارات الإدارة العليا.",a:false,
+  ex:"خطأ — ديمنج يرى العكس تمامًا: الجودة نتاج قرارات الإدارة العليا."},
+ {q:"والتر شيوارت كان خبيرًا إحصائيًا رصد تحولات عشوائية في جميع جوانب الصناعة.",a:true,
+  ex:"صحيح — ورأى أن تجاوز الانحرافات للحدود يستلزم انقطاع العمل."},
+ {q:"جوزيف جوران عالم ياباني.",a:false,
+  ex:"خطأ — جوران عالم أمريكي؛ الياباني الوحيد بين الرواد هو كاورو إيشيكاوا."},
+ {q:"يرى كروسبي أن معيار جودة الأداء هو العيوب الصفرية وأن الأخطاء غير محتملة الحدوث.",a:true,
+  ex:"صحيح — وهذه ثالث مسلماته الأربعة."},
+  {q:"يرى فايجنباوم أن فريق الرقابة على الجودة هو المسؤول الأول والأخير عن الجودة.",a:false,
+  ex:"خطأ — فريق الرقابة «ميسرون وليسوا مسؤولين»؛ الجودة مسؤولية كل فرد في المنظمة."},
+ {q:"كاورو إيشيكاوا عالم ياباني ورائد مفهوم حلقات الجودة.",a:true,
+  ex:"صحيح — (1915–1989)."},
+ {q:"مرحلة تأكيد الجودة قامت على رقابة شاملة على كافة العمليات من تصميم المنتج حتى وصوله ليد المستهلك.",a:true,
+  ex:"صحيح — وجودة تلك المرحلة جهود مشتركة من جميع الأقسام المعنية."},
+ {q:"خطوات دائرة شيوارت الأصلية: خطط ← نفّذ ← قم بمعايرة ← حسّن.",a:false,
+  ex:"خطأ — هذه PDCA التابعة لديمنج. دائرة شيوارت: خطط ← اختبر/جرّب ← لاحظ نتائج التجربة ← درس النتائج."},
+ {q:"التعريف الثاني لإدارة الجودة الشاملة يرى أنها فلسفة إدارية تهدف لتحقيق التميز في جودة أداء المنظومة ككل بالوفاء باحتياجات العاملين.",a:true,
+  ex:"صحيح — بينما التعريف الأول يركز على خلق ثقافة تنظيمية للتحسين المستمر بإشراك جميع العاملين."},
+ {q:"كانت رقابة الإدارة العلمية على الجودة تهدف إلى تحديد الانحراف والمسؤول عنه لتوقيع العقوبة المناسبة.",a:true,
+  ex:"صحيح — هذه طبيعة فحص الجودة في مرحلة تايلور."},
+ {q:"وفق استراتيجية IBM، الجودة مسؤولية قسم الجودة فقط داخل المنظمة.",a:false,
+  ex:"خطأ — الجودة مسؤولية الجميع من قمة الهرم التنظيمي حتى قاعدته."}
+];
+
+let answeredMcq = new Array(MCQ.length).fill(null);
+let answeredTf = new Array(TF.length).fill(null);
+
+/* ================== بناء الاختبار ================== */
+function buildQuiz(){
+  const mcqArea = document.getElementById('mcqArea');
+  mcqArea.innerHTML = MCQ.map((item,i)=>
+   <div class="q-card">
+     <span class="q-num">سؤال ${i+1} / ${MCQ.length}</span>
+     <h4>${item.q}</h4>
+     ${item.opts.map((o,j)=><div class="opt" data-q="${i}" data-o="${j}" onclick="pickMcq(this)"><span class="letter">${['أ','ب','ج','د'][j]}</span>${o}</div>).join('')}
+     <div class="explain" id="ex-mcq-${i}"></div>
+   </div>).join('');
+  const tfArea = document.getElementById('tfArea');
+  tfArea.innerHTML = TF.map((item,i)=>
+   <div class="q-card">
+     <span class="q-num">عبارة ${i+1} / ${TF.length}</span>
+     <h4>${item.q}</h4>
+     <div class="tf-btns">
+       <button class="tf-btn" data-q="${i}" data-v="true" onclick="pickTf(this)">✔️ صح</button>
+       <button class="tf-btn" data-q="${i}" data-v="false" onclick="pickTf(this)">❌ خطأ</button>
+     </div>
+     <div class="explain" id="ex-tf-${i}"></div>
+   </div>).join('');
+}
+buildQuiz();
+
+function pickMcq(el){
+  const q = +el.dataset.q, o = +el.dataset.o;
+  if(answeredMcq[q] !== null) return;
+  answeredMcq[q] = (o === MCQ[q].a);
+  const card = el.parentElement;
+  card.querySelectorAll('.opt').forEach(opt=>{
+    opt.classList.add('locked');
+    if(+opt.dataset.o === MCQ[q].a) opt.classList.add('correct');
+  });
+  if(o !== MCQ[q].a) el.classList.add('wrong');
+  const ex = document.getElementById('ex-mcq-'+q);
+  ex.innerHTML = <b>${answeredMcq[q]?'✅ إجابة صحيحة!':'❌ إجابة خاطئة.'}</b> ${MCQ[q].ex};
+  ex.classList.add('show');
+}
+function pickTf(el){
+  const q = +el.dataset.q, v = el.dataset.v === 'true';
+  if(answeredTf[q] !== null) return;
+  answeredTf[q] = (v === TF[q].a);
+  const card = el.parentElement;
+  card.querySelectorAll('.tf-btn').forEach(b=>{
+    b.disabled = true;
+    if((b.dataset.v==='true') === TF[q].a) b.classList.add('correct');
+  });
+  if(v !== TF[q].a) el.classList.add('wrong');
+  const ex = document.getElementById('ex-tf-'+q);
+  ex.innerHTML = <b>${answeredTf[q]?'✅ صحيحة!':'❌ خاطئة.'}</b> ${TF[q].ex};
+  ex.classList.add('show');
+}
+function gradeQuiz(){
+  const total = MCQ.length + TF.length;
+  const doneMcq = answeredMcq.filter(x=>x!==null).length;
+  const doneTf = answeredTf.filter(x=>x!==null).length;
+  if(doneMcq + doneTf < total){
+    if(!confirm(أجبت على ${doneMcq+doneTf} من ${total} سؤالًا فقط. هل تريد إظهار النتيجة على أي حال؟)) return;
+  }
+  const correct = answeredMcq.filter(Boolean).length + answeredTf.filter(Boolean).length;
+  {q:"يرى فايجنباوم أن فريق الرقابة على الجودة هو المسؤول الأول والأخير عن الجودة.",a:false,
+  ex:"خطأ — فريق الرقابة «ميسرون وليسوا مسؤولين»؛ الجودة مسؤولية كل فرد في المنظمة."},
+ {q:"كاورو إيشيكاوا عالم ياباني ورائد مفهوم حلقات الجودة.",a:true,
+  ex:"صحيح — (1915–1989)."},
+ {q:"مرحلة تأكيد الجودة قامت على رقابة شاملة على كافة العمليات من تصميم المنتج حتى وصوله ليد المستهلك.",a:true,
+  ex:"صحيح — وجودة تلك المرحلة جهود مشتركة من جميع الأقسام المعنية."},
+ {q:"خطوات دائرة شيوارت الأصلية: خطط ← نفّذ ← قم بمعايرة ← حسّن.",a:false,
+  ex:"خطأ — هذه PDCA التابعة لديمنج. دائرة شيوارت: خطط ← اختبر/جرّب ← لاحظ نتائج التجربة ← درس النتائج."},
+ {q:"التعريف الثاني لإدارة الجودة الشاملة يرى أنها فلسفة إدارية تهدف لتحقيق التميز في جودة أداء المنظومة ككل بالوفاء باحتياجات العاملين.",a:true,
+  ex:"صحيح — بينما التعريف الأول يركز على خلق ثقافة تنظيمية للتحسين المستمر بإشراك جميع العاملين."},
+ {q:"كانت رقابة الإدارة العلمية على الجودة تهدف إلى تحديد الانحراف والمسؤول عنه لتوقيع العقوبة المناسبة.",a:true,
+  ex:"صحيح — هذه طبيعة فحص الجودة في مرحلة تايلور."},
+ {q:"وفق استراتيجية IBM، الجودة مسؤولية قسم الجودة فقط داخل المنظمة.",a:false,
+  ex:"خطأ — الجودة مسؤولية الجميع من قمة الهرم التنظيمي حتى قاعدته."}
+];
+
+let answeredMcq = new Array(MCQ.length).fill(null);
+let answeredTf = new Array(TF.length).fill(null);
+
+/* ================== بناء الاختبار ================== */
+function buildQuiz(){
+  const mcqArea = document.getElementById('mcqArea');
+  mcqArea.innerHTML = MCQ.map((item,i)=>
+   <div class="q-card">
+     <span class="q-num">سؤال ${i+1} / ${MCQ.length}</span>
+     <h4>${item.q}</h4>
+     ${item.opts.map((o,j)=><div class="opt" data-q="${i}" data-o="${j}" onclick="pickMcq(this)"><span class="letter">${['أ','ب','ج','د'][j]}</span>${o}</div>).join('')}
+     <div class="explain" id="ex-mcq-${i}"></div>
+   </div>).join('');
+  const tfArea = document.getElementById('tfArea');
+  tfArea.innerHTML = TF.map((item,i)=>
+   <div class="q-card">
+     <span class="q-num">عبارة ${i+1} / ${TF.length}</span>
+     <h4>${item.q}</h4>
+     <div class="tf-btns">
+       <button class="tf-btn" data-q="${i}" data-v="true" onclick="pickTf(this)">✔️ صح</button>
+       <button class="tf-btn" data-q="${i}" data-v="false" onclick="pickTf(this)">❌ خطأ</button>
+     </div>
+     <div class="explain" id="ex-tf-${i}"></div>
+   </div>).join('');
+}
+buildQuiz();
+
+function pickMcq(el){
+  const q = +el.dataset.q, o = +el.dataset.o;
+  if(answeredMcq[q] !== null) return;
+  answeredMcq[q] = (o === MCQ[q].a);
+  const card = el.parentElement;
+  card.querySelectorAll('.opt').forEach(opt=>{
+    opt.classList.add('locked');
+    if(+opt.dataset.o === MCQ[q].a) opt.classList.add('correct');
+  });
+  if(o !== MCQ[q].a) el.classList.add('wrong');
+  const ex = document.getElementById('ex-mcq-'+q);
+  ex.innerHTML = <b>${answeredMcq[q]?'✅ إجابة صحيحة!':'❌ إجابة خاطئة.'}</b> ${MCQ[q].ex};
+  ex.classList.add('show');
+}
+function pickTf(el){
+  const q = +el.dataset.q, v = el.dataset.v === 'true';
+  if(answeredTf[q] !== null) return;
+  answeredTf[q] = (v === TF[q].a);
+  const card = el.parentElement;
+  card.querySelectorAll('.tf-btn').forEach(b=>{
+    b.disabled = true;
+    if((b.dataset.v==='true') === TF[q].a) b.classList.add('correct');
+  });
+  if(v !== TF[q].a) el.classList.add('wrong');
+  const ex = document.getElementById('ex-tf-'+q);
+  ex.innerHTML = <b>${answeredTf[q]?'✅ صحيحة!':'❌ خاطئة.'}</b> ${TF[q].ex};
+  ex.classList.add('show');
+}
+function gradeQuiz(){
+  const total = MCQ.length + TF.length;
+  const doneMcq = answeredMcq.filter(x=>x!==null).length;
+  const doneTf = answeredTf.filter(x=>x!==null).length;
+  if(doneMcq + doneTf < total){
+    if(!confirm(أجبت على ${doneMcq+doneTf} من ${total} سؤالًا فقط. هل تريد إظهار النتيجة على أي حال؟)) return;
+  }
+  const correct = answeredMcq.filter(Boolean).length + answeredTf.filter(Boolean).length;
+  const attempted = doneMcq + doneTf;
+  const pct = attempted ? Math.round(correct/total*100) : 0;
+  const res = document.getElementById('quizResult');
+  res.classList.add('show');
+  document.getElementById('scoreNum').textContent = pct + '%';
+  document.getElementById('scoreDetail').textContent = أجبت بدقة على ${correct} سؤالًا من أصل ${total} (أجبت عن ${attempted}).;
+  const msg = document.getElementById('scoreMsg');
+  if(pct >= 90) msg.textContent = '🌟 ممتاز! جاهز تمامًا للامتحان';
+  else if(pct >= 75) msg.textContent = '👏 جيد جدًا! راجع الأخطاء البسيطة';
+  else if(pct >= 50) msg.textContent = '📚 مقبول — أعد مراجعة الملخص النهائي';
+  else msg.textContent = '💪 تحتاج مراجعة أخرى — ابدأ من الخط الزمني والبطاقات';
+  const circle = document.getElementById('scoreCircle');
+  circle.style.background = conic-gradient(var(--purple) ${pct*3.6}deg, var(--lav-light) ${pct*3.6}deg);
+  res.scrollIntoView({behavior:'smooth'});
+  localStorage.setItem('tqmQuizBest', Math.max(pct, +(localStorage.getItem('tqmQuizBest')||0)));
+}
+function resetQuiz(){
+  answeredMcq = new Array(MCQ.length).fill(null);
+  answeredTf = new Array(TF.length).fill(null);
+  buildQuiz();
+  document.getElementById('quizResult').classList.remove('show');
+  window.scrollTo({top:document.getElementById('quiz').offsetTop,behavior:'smooth'});
+}
+function switchQuiz(type){
+  document.getElementById('mcqArea').style.display = type==='mcq' ? 'block':'none';
+  document.getElementById('tfArea').style.display = type==='tf' ? 'block':'none';
+  document.getElementById('tabMcq').classList.toggle('active', type==='mcq');
+  document.getElementById('tabTf').classList.toggle('active', type==='tf');
+}
+
+/* ================== بطاقات الحفظ ================== */
+document.querySelectorAll('.flash').forEach(f=>f.addEventListener('click',()=>f.classList.toggle('flipped')));
+
+/* ================== أسئلة الملخص ================== */
+document.querySelectorAll('.qa-q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const item = q.parentElement;
+    const ans = item.querySelector('.qa-a');
+    const open = item.classList.toggle('open');
+    ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0';
+  });
+});
+
+/* ================== تتبع التقدم ================== */
+const SECS = ['timeline','stages','scientists','theories','compare','summary','flash'];
+function updateProgress(){
+  const done = SECS.filter(s=>localStorage.getItem('tqmStudied_'+s)==='1').length;
+  const pct = Math.round(done/SECS.length*100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '%';
+}
+document.querySelectorAll('.study-done').forEach(cb=>{
+  cb.checked = localStorage.getItem('tqmStudied_'+cb.dataset.sec)==='1';
+  cb.addEventListener('change',()=>{
+    localStorage.setItem('tqmStudied_'+cb.dataset.sec, cb.checked?'1':'0');
+    updateProgress();
+  });
+});
+updateProgress();
+
+/* ================== تمييز الرابط النشط ================== */
+const sections = document.querySelectorAll('section[id], header[id]');
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll',()=>{
+  let current = 'home';
+  sections.forEach(s=>{ if(window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')==='#'+current));
+});
+</script>
+</body>
+</html>
